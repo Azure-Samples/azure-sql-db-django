@@ -1,3 +1,5 @@
+#Serializer for converting complex objects into native Python datatypes and deserialize parsed data back into complex types
+
 from rest_framework import serializers
 from CustomerApp.models import Customers,Products,OrderDetails
 

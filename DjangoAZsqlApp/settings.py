@@ -55,6 +55,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+
 ROOT_URLCONF = 'DjangoAZsqlApp.urls'
 
 TEMPLATES = [
@@ -76,7 +78,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'DjangoAZsqlApp.wsgi.application'
 
 
-# Database
+# Database connection details
+# https://github.com/microsoft/mssql-django
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
@@ -91,6 +94,18 @@ DATABASES = {
 	            'driver': 'ODBC Driver 17 for SQL Server',
 	        },
     }
+
+    #To connect Azure SQL DB using MSI (Managed Service Idenity)
+    # {
+    #     'ENGINE': 'mssql',
+    #     'HOST': 'xyz.database.windows.net',
+    #     'NAME': 'mydb', 
+    #     'PORT': '', 
+    #     'Trusted_Connection': 'no', 
+    #     'OPTIONS': { 
+    #         'driver': 'ODBC Driver 17 for SQL Server', 
+    #         'extra_params': "Authentication=ActiveDirectoryMsi;Encrypt=yes;TrustServerCertificate=no" }
+    # }
 }
 
 # set this to False if the backend does not support using time zones

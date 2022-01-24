@@ -1,3 +1,5 @@
+#View which takes a request and returns a response
+
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -12,8 +14,9 @@ from CustomerApp.serializers import CustomerSerializer,ProductSerializer, OrderD
 #Request handler which takes requests and sends the response
 
 @csrf_exempt
-def CustomerAPI (request, id=0):
+def CustomerAPI (request):
     if request.method=='GET':
+        
         customers =  Customers.objects.all()
         customers_serializer=CustomerSerializer(customers,many=True)
         return JsonResponse(customers_serializer.data,safe=False)
@@ -22,7 +25,7 @@ def CustomerAPI (request, id=0):
         customers_serializer=CustomerSerializer(data=customer_data)
         if customers_serializer.is_valid():
             customers_serializer.save()
-            return JsonResponse("Record Added Successfully",safe=False)
+            return JsonResponse("Record Inserted Successfully",safe=False)
         return JsonResponse("Oops...something went wrong.",safe=False)
     elif request.method=='PUT':
         customer_data=JSONParser().parse(request)
@@ -33,12 +36,13 @@ def CustomerAPI (request, id=0):
             return JsonResponse("Record Updated Successfully",safe=False)
         return JsonResponse("There is some error updating the record")
     elif request.method=='DELETE':
-        customer=Customers.objects.get(CustomerId=id)
+        customer_data=JSONParser().parse(request)
+        customer=Customers.objects.get(CustomerId=customer_data['CustomerId'])
         customer.delete()
         return JsonResponse("Record Deleted Successfully",safe=False)
 
 @csrf_exempt
-def ProductAPI (request, id=0):
+def ProductAPI (request):
     if request.method=='GET':
         products =  Products.objects.all()
         products_serializer=ProductSerializer(products,many=True)
@@ -48,7 +52,7 @@ def ProductAPI (request, id=0):
         products_serializer=ProductSerializer(data=product_data)
         if products_serializer.is_valid():
             products_serializer.save()
-            return JsonResponse("Record Added Successfully",safe=False)
+            return JsonResponse("Record Inserted Successfully",safe=False)
         return JsonResponse("Oops...something went wrong.",safe=False)
     elif request.method=='PUT':
         product_data=JSONParser().parse(request)
@@ -59,12 +63,13 @@ def ProductAPI (request, id=0):
             return JsonResponse("Record Updated Successfully",safe=False)
         return JsonResponse("There is some error updating the record")
     elif request.method=='DELETE':
-        product=Products.objects.get(ProductId=id)
+        product_data=JSONParser().parse(request)
+        product=Products.objects.get(ProductId=product_data['ProductId'])
         product.delete()
         return JsonResponse("Record Deleted Successfully",safe=False)
 
 @csrf_exempt
-def OrderDetailAPI (request, id=0):
+def OrderDetailAPI (request):
     if request.method=='GET':
         orderDetails =  OrderDetails.objects.all()
         orderDetails_serializer=OrderDetailSerializer(orderDetails,many=True)
@@ -74,7 +79,7 @@ def OrderDetailAPI (request, id=0):
         orderDetails_serializer=OrderDetailSerializer(data=orderDetails_data)
         if orderDetails_serializer.is_valid():
             orderDetails_serializer.save()
-            return JsonResponse("Record Added Successfully",safe=False)
+            return JsonResponse("Record Inserted Successfully",safe=False)
         return JsonResponse("Oops...something went wrong.",safe=False)
     elif request.method=='PUT':
         orderDetails_data=JSONParser().parse(request)
@@ -85,6 +90,7 @@ def OrderDetailAPI (request, id=0):
             return JsonResponse("Record Updated Successfully",safe=False)
         return JsonResponse("There is some error updating the record")
     elif request.method=='DELETE':
-        orderDetails=OrderDetails.objects.get(OrderId=id)
+        orderDetails_data=JSONParser().parse(request)
+        orderDetails=OrderDetails.objects.get(OrderId=orderDetails_data['OrderId'])
         orderDetails.delete()
         return JsonResponse("Record Deleted Successfully",safe=False)

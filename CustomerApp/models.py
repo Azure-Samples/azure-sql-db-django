@@ -1,3 +1,6 @@
+#A model is the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Generally, each model maps to a single database table
+
+from math import fabs
 from django.db import models
 
 # Create your models here.
@@ -12,6 +15,6 @@ class Products(models.Model):
 
 class OrderDetails(models.Model):
     OrderId = models.AutoField(primary_key=True)
-    CustomerId = models.IntegerField()
-    ProductId = models.IntegerField()
+    CustomerId = models.IntegerField(blank=False)
+    ProductId = models.IntegerField(blank=False)
     OrderDate = models.DateField()

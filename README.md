@@ -31,7 +31,7 @@ Also, install [Django REST framework](hhttps://www.django-rest-framework.org/#in
 ```Python
 pip install djangorestframework
 ```
-You should also install [django-cors-headers](https://pypi.org/project/django-cors-headers/). It is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS).
+You should also install [django-cors-headers](https://pypi.org/project/django-cors-headers/). It's a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS).
 ```Python
 pip install django-cors-headers
 ```
@@ -43,7 +43,7 @@ pip install django-cors-headers
 
 ## Create the Azure SQL Database
 
-If you don't have a Azure SQL server already, you can create one (no additional costs for a server) running the following [AZ CLI](https://docs.microsoft.com/en-us/cli/azure/) command (via [WSL](https://docs.microsoft.com/en-us/windows/wsl/), or Linux or [Azure Cloud Shell](https://azure.microsoft.com/en-us/features/cloud-shell/)):
+If you don't have an Azure SQL server already, you can create one (no additional costs for a server) running the following [AZ CLI](https://docs.microsoft.com/en-us/cli/azure/) command (via [WSL](https://docs.microsoft.com/en-us/windows/wsl/), or Linux or [Azure Cloud Shell](https://azure.microsoft.com/en-us/features/cloud-shell/)):
 
 ```PowerShell
 az sql server create -n <server-name> -l <location> --admin-user <admin-user> --admin-password <admin-password> -g <resource-group>
@@ -54,13 +54,15 @@ Create a new Azure SQL database:
 az sql db create -g <resource-group> -s <server-name> -n todo_v3 --service-objective GP_Gen5_2
 ```
 
-Another option is to run the `azure-create-sql-db.sh` script in the `./databases` folder. The script uses the ARM template available in the same folder to create a server and a `todo_v3` database.
+Another option is to run the `azure-create-sql-db.sh` script in the `./databases` folder. The script uses the ARM (Azure Resource Manager) template available in the same folder to create a server and a `todo_v3` database.
 
 Make sure you have the firewall configured to allow your machine to access Azure SQL:
 ```powershell
 az sql server firewall-rule create --resource-group <resource-group> --server <server-name> --name AllowMyClientIP_1 --start-ip-address <your_public_ip> --end-ip-address <your_public_ip>
 ```
 You can get your public IP from [here](https://ifconfig.me/) for example: https://ifconfig.me/
+
+<p>&nbsp;</p>
 
 ## Setting up the Django project
 
@@ -80,7 +82,7 @@ Now that the server’s running, visit http://127.0.0.1:8000/ with your web brow
 
 <p>&nbsp;</p>
 
-### Create the API App
+## Create the API App
 Now that your environment – a “project” – is set up, you’re set to start creating your functional apps.
 
 To create your app, make sure you’re in the same directory as manage.py and type this command:
@@ -88,7 +90,7 @@ To create your app, make sure you’re in the same directory as manage.py and ty
 py manage.py startapp <app_name>
 ```
 
-Register the app and required modules in settings.py file and also create your Models which will represent tables or collection in database and Serializer for converting complex objects into native Python datatypes and deserialize parsed data back into complex types. Also, create your view function to handle the requests and return the response, and map URL patterns accordingly.
+Register the app and required modules in settings.py file. And create your Models that will represent tables or collection in database and Serializer for converting complex objects into native Python datatypes and deserialize parsed data back into complex types. Also, create your view function to handle the requests and return the response, and map URL patterns accordingly.
 
 <p>&nbsp;</p>
 
@@ -158,19 +160,19 @@ python manage.py makemigrations <app name>
 python manage.py migrate <app name>
 ```
 
-Once migration is done successfully, you will see that database objects are created in your database.
+Once migration is done successfully, you’ll see that database objects are created in your database.
 
 <p>&nbsp;</p>
 
 ## Run the Django Application locally
 
-Execute the below command to starts the development web server on the local machine. By default, the server runs on port 8000 on the IP address 127.0.0.1. You can pass in an IP address and port number explicitly.
+Execute the below command, to start the development web server on the local machine. By default, the server runs on port 8000 on the IP address 127.0.0.1. You can pass in an IP address and port number explicitly.
 
 ```Python
     python manage.py runserver [addrport]
 ```
 
-Once the Django application is running, you will see something like:
+Once the Django application is running, you'll see something like:
 ```Text
 ...
 
@@ -185,7 +187,7 @@ Using a REST Client (like [Insomnia](https://insomnia.rest/), [Postman](https://
 ```bash
 curl -X GET http://127.0.0.1:8000/CustomerApp/Customer/
 ```
-And you will get a response something like:
+And you’ll get a response something like:
 ```JSON
 [
     {"CustomerId": 1, "CustomerName": "Keith"},
@@ -197,7 +199,7 @@ And you will get a response something like:
 ]
 ```
 
-Check out the samples to test all CRUD operations.
+Check out the [sample](https://github.com/abhimantiwari/Django-AzureSQL) to test all CRUD operations.
 
 <p>&nbsp;</p>
 
@@ -206,5 +208,3 @@ Check out the samples to test all CRUD operations.
 <p>&nbsp;</p>
 
 If you encounter any issues or have any feedback about [mssql-django](https://github.com/microsoft/mssql-django), head over to our mssql-django project repository and submit an issue.
-
-

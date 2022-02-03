@@ -6,13 +6,91 @@ The sample uses the [Django](https://www.djangoproject.com/) web framework and [
 > [mssql-django](https://github.com/microsoft/mssql-django) is a fork of [django-mssql-backend](https://pypi.org/project/django-mssql-backend/). This driver provides an enterprise database connectivity option for the Django Web Framework, with support for Microsoft SQL Server and Azure SQL Database.
 >[ssql-django](https://github.com/microsoft/mssql-django) supports Django 2.2, 3.0, 3.1, 3.2 and 4.0.
 
-## Install the dependencies
+## Download the sample code
 
-Make sure you have [Python](https://www.python.org/) installed on your machine.
+Download the code from Github repository [azure-sql-db-django](https://github.com/abhimantiwari/Django-AzureSQL).
+
+Using Git bash.
+
+- Open Git Bash.
+- Change the current working directory to the location where you want the cloned directory.
+- Type `git clone` and then paste the URL of Github repository [azure-sql-db-django](https://github.com/abhimantiwari/Django-AzureSQL).
+
+```bash
+$ git clone https://github.com/YOUR-USERNAME/azure-sql-db-django
+```
+
+Alternatively you can clone the code using visual studio code as well.
+
+- Open the folder location where you want to cloned the code
+- In Visual Studio Code, select Source Control > ... > Clone (or select View, Command Palette and enter Git:Clone), paste the Git repository URL you copied in the previous step, and then select Enter</>.
+
+Since you have the code downloaded to your local computer. You should see folder structure as below:
+
+```properties
+Django-AzureSQL
+ ┣ CustomerApp
+ ┃ ┣ __pycache__
+ ┃ ┣ migrations
+ ┃ ┣ admin.py
+ ┃ ┣ apps.py
+ ┃ ┣ models.py
+ ┃ ┣ serializers.py
+ ┃ ┣ tests.py
+ ┃ ┣ urls.py
+ ┃ ┣ views.py
+ ┃ ┗ __init__.py
+ ┣ DjangoAZsqlApp
+ ┃ ┣ __pycache__
+ ┃ ┣ asgi.py
+ ┃ ┣ settings.py
+ ┃ ┣ urls.py
+ ┃ ┣ wsgi.py
+ ┃ ┗ __init__.py
+ ┣ manage.py
+ ┗ README.md
+```
+
+## Create Azure SQL Database
+
+If you don't have an Azure SQL server already, you can create one (no additional costs for a server) by running the following [AZ CLI](https://docs.microsoft.com/en-us/cli/azure/) command (via [WSL](https://docs.microsoft.com/en-us/windows/wsl/), or Linux or [Azure Cloud Shell](https://azure.microsoft.com/en-us/features/cloud-shell/)):
+
+Create a resource group if you don't have one already created:
+
+```azurecli-interactive
+az group create -l <location> -n <MyResourceGroup>
+```
+
+Create the Database Server:
+
+```azurecli-interactive
+az sql server create -n <server-name> -l <location> --admin-user <admin-user> --admin-password <admin-password> -g <resource-group>
+```
+
+> [!NOTE]
+> Make sure to note the database name, username and password somewhere safe.
+
+Create a new Azure SQL database:
+
+```azurecli-interactive
+az sql db create -g <resource-group> -s <server-name> -n my-db --service-objective GP_Gen5_2
+```
+
+Make sure you have the firewall configured to allow your machine to access Azure SQL:
+
+```azurecli-interactive
+az sql server firewall-rule create --resource-group <resource-group> --server <server-name> --name AllowMyClientIP_1 --start-ip-address <your_public_ip> --end-ip-address <your_public_ip>
+```
+
+You can get your public IP [here](https://ipinfo.io/ip) or through other ways, for example: https://ifconfig.me/
+
+## Setup the local environment
+
+Make sure you have [Python](https://www.python.org/) =>3.10 installed on your machine.
 
 To confirm you can run `python` on Terminal.
 
-```Python
+```python
 > python
 Python 3.10.2 (tags/v3.10.2:a58ebcc, Jan 17 2022, 14:12:15) [MSC v.1929 64 bit (AMD64)] on win32
 Type "help", "copyright", "credits" or "license" for more information.
@@ -21,89 +99,69 @@ hello world
 >>>
 ```
 
-Also, install [Django](https://www.djangoproject.com/download/):
+> [!NOTE]
+>All the commands shown here are for Windows. If you are working on any other OS/ environment e.g. Linux, MAC etc. change these commands accordingly.
 
-```bash
+Install [`virtualenv`](https://virtualenv.pypa.io/en/latest/) to configure virtual environment to have isolated Python environment to avoid installing Python packages globally which could potentially break system tools or other projects. For example on Windows:
+
+```python
+python -m pip install --user virtualenv
+```
+
+Configure virtual environment:\
+To create a virtual environment, go to your project’s working directory and run `venv`.
+
+```python
+python -m venv env
+```
+
+> [!NOTE]
+> In the above command the second parameter `env` is the location to create virtual environment.\
+> `venv` will create a virtual Python installation in the `env` folder.\
+> You should exclude your virtual environment directory from your version control system using `.gitignore` or similar.
+
+Activate the virtual environment:\
+Before you start installing or using django packages in your virtual environment, you'll need to Activate it.
+
+```python
+. .\env\Scripts\activate
+```
+
+> [!NOTE]
+> You can confirm, you’re in the virtual environment by checking the location of your Python interpreter. It should be in the `env` directory.
+>
+> ```python
+> where python
+> ```
+>
+> As long as your virtual environment is activated, `pip` will install packages into that specific environment and you’ll be able to import and use packages in your Python application.
+
+## Install the dependencies
+
+> Make sure virtual environment is active and you are into your `working_folder\Django-AzureSQL`
+
+Install [Django](https://www.djangoproject.com/download/):
+
+```python
 pip install django
 ```
 
-Also, install [Django REST framework](hhttps://www.django-rest-framework.org/#installation) to create REST API:
+Also, install [Django REST framework](hhttps://www.django-rest-framework.org/#installation) for REST API:
 
-```Python
+```python
 pip install djangorestframework
 ```
 
 You should also install [django-cors-headers](https://pypi.org/project/django-cors-headers/). It's a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS).
 
-```Python
+```python
 pip install django-cors-headers
 ```
 
 > [!NOTE]
 > Adding [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) headers allows your resources to be accessed on other domains. It’s important you understand the implications before adding the headers since you could be unintentionally opening up your site’s private data to others.
 
-## Create the Azure SQL Database
-
-If you don't have an Azure SQL server already, you can create one (no additional costs for a server) running the following [AZ CLI](https://docs.microsoft.com/en-us/cli/azure/) command (via [WSL](https://docs.microsoft.com/en-us/windows/wsl/), or Linux or [Azure Cloud Shell](https://azure.microsoft.com/en-us/features/cloud-shell/)):
-
-```PowerShell
-az sql server create -n <server-name> -l <location> --admin-user <admin-user> --admin-password <admin-password> -g <resource-group>
-```
-
-Create a new Azure SQL database:
-
-```PowerShell
-az sql db create -g <resource-group> -s <server-name> -n todo_v3 --service-objective GP_Gen5_2
-```
-
-Another option is to run the `azure-create-sql-db.sh` script in the `./databases` folder. The script uses the ARM (Azure Resource Manager) template available in the same folder to create a server and a `todo_v3` database.
-
-Make sure you have the firewall configured to allow your machine to access Azure SQL:
-
-```PowerShell
-az sql server firewall-rule create --resource-group <resource-group> --server <server-name> --name AllowMyClientIP_1 --start-ip-address <your_public_ip> --end-ip-address <your_public_ip>
-```
-
-You can get your public IP from [here](https://ifconfig.me/) for example: https://ifconfig.me/
-
-&nbsp;
-
-## Setting up the Django project
-
-You can download the [sample](https://github.com/abhimantiwari/Django-AzureSQL), as a baseline starter or you may create your own project.
-
-```Python
-django-admin startproject <name of the project>
-```
-
-To verify your Django project works. Change into the outer project directory, if you haven’t already, and run the following commands:
-
-```Python
-py manage.py runserver
-```
-
-Now that the server’s running, visit http://127.0.0.1:8000/ with your web browser. You’ll see a “Congratulations!” page.
-
-> [!NOTE]
-> Ignore the warning about unapplied database migrations for now. we’ll deal with the database shortly.
-
-&nbsp;
-
-## Create the API App
-
-Now that your environment – a “project” – is set up, you’re set to start creating your functional apps.
-
-To create your app, make sure you’re in the same directory as manage.py and type this command:
-
-```Python
-py manage.py startapp <app_name>
-```
-
-Register the app and required modules in settings.py file. And create your Models that will represent tables or collection in database and Serializer for converting complex objects into native Python datatypes and deserialize parsed data back into complex types. Also, create your view function to handle the requests and return the response, and map URL patterns accordingly.
-
-&nbsp;
-
-## Configure Azure SQL connectivity with Django
+## Configure Azure SQL connectivity with Django App
 
 ### Dependencies
 
@@ -113,13 +171,13 @@ Register the app and required modules in settings.py file. And create your Model
 
 - Install pyodbc:
 
-    ```Python
+    ```python
     pip install pyodbc
     ```
 
 - Install mssql-django:
 
-    ```Python
+    ```python
     pip install mssql-django
     ```
 
@@ -127,7 +185,7 @@ Register the app and required modules in settings.py file. And create your Model
 
 Configure the Database ConnectionString in the settings.py file used by your Django application or project:
 
-```Python
+```sql
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
@@ -145,7 +203,7 @@ DATABASES = {
 
 To connect Azure SQL DB using MSI (Managed Service Identity), you can have settings as below:
 
-```Python
+```sql
 DATABASES = {
     'default': {
          'ENGINE': 'mssql',
@@ -162,41 +220,38 @@ DATABASES = {
 
 > [!WARNING]
 > [mssql-django](https://github.com/microsoft/mssql-django) doesn't support using time zones so the recommendation is to ensure the `USE_TZ` option is set to `False`.
-
-```Python
-DATABASES = {
-...
-}
-
-# set this to False if the backend does not support using time zones
-USE_TZ = False
-```
+>
+>```sql
+>
+> DATABASES = {
+> ...
+> }
+> # set this to False if the backend does not support using time zones
+> USE_TZ = False
+> ```
 
 Run the migrations command to propagate changes you made to your models (creating a class, adding a field, deleting a model, etc.) into your database schema.
 
-```Python
+```python
 python manage.py makemigrations <app name>
 
 python manage.py migrate <app name>
 ```
 
-Once migration is done successfully, you’ll see that database objects are created in your database.
+Once migration is done successfully, you’ll see that database objects are created in your database. You can connect to your database and verify. Quickstart available here: [Quickstart: Use Azure Data Studio to connect and query Azure SQL database](https://docs.microsoft.com/en-us/sql/azure-data-studio/quickstart-sql-database?view=sql-server-ver15)
 
-&nbsp;
-
-## Run the Django Application locally
+## Run sample locally
 
 Execute the below command, to start the development web server on the local machine. By default, the server runs on port 8000 on the IP address 127.0.0.1. You can pass in an IP address and port number explicitly.
 
-```Python
-    python manage.py runserver [addrport]
+```python
+python manage.py runserver
 ```
 
 Once the Django application is running, you'll see something like:
 
-```Text
+```bash
 ...
-
 System check identified no issues (0 silenced).
 January 26, 2022 - 00:29:43
 Django version 4.0.1, using settings 'DjangoAZsqlApp.settings'
@@ -210,20 +265,15 @@ Using a REST Client (like [Insomnia](https://insomnia.rest/), [Postman](https://
 curl -X GET http://127.0.0.1:8000/CustomerApp/Customer/
 ```
 
-And you’ll get a response something like:
+And you’ll get a response something like (based on available data in tables):
 
-```JSON
+```json
 [
-    {"CustomerId": 1, "CustomerName": "Keith"},
-    {"CustomerId": 2, "CustomerName": "Janet"},
-    {"CustomerId": 4, "CustomerName": "Cortana"},
-    {"CustomerId": 5, "CustomerName": "Michael"},
-    {"CustomerId": 7, "CustomerName": "David"},
-    {"CustomerId": 8, "CustomerName": "Mike"}
+    {"CustomerId": 1, "CustomerName": "Keith"},{"CustomerId": 2, "CustomerName": "Janet"},{"CustomerId": 4, "CustomerName": "Cortana"},{"CustomerId": 5, "CustomerName": "Michael"},{"CustomerId": 7, "CustomerName": "David"},{"CustomerId": 8, "CustomerName": "Mike"}
 ]
 ```
 
-Check out the [sample](https://github.com/abhimantiwari/Django-AzureSQL) to test all CRUD operations.
+Check out the [sample](https://github.com/abhimantiwari/Django-AzureSQL) to test all the CRUD operations.
 
 > [!TIP]
 > You can use [mssql-django](https://github.com/microsoft/mssql-django) as a backend for your existing Django 4.0 project with no major change if that's already configured for MSSQL.

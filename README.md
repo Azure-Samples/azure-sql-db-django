@@ -48,7 +48,8 @@ Django-AzureSQL
  ┃ ┣ wsgi.py
  ┃ ┗ __init__.py
  ┣ manage.py
- ┗ README.md
+ ┣ README.md
+ ┗ requirements.txt
 ```
 
 ## Create Azure SQL Database
@@ -138,7 +139,14 @@ Before you start installing or using django packages in your virtual environment
 
 ## Install the dependencies
 
-> Make sure virtual environment is active and you are into your `working_folder\Django-AzureSQL`
+> Make sure virtual environment is active and you are into your `working_folder\Django-AzureSQL`.
+
+> [!TIP]
+> You can install all the required packages in one go by running the below command and directly move to Database ConnectionString **Configuration** section or may follow the instructions to execute them one by one:
+>
+> ```python
+> pip install -r .\requirements.txt
+> ```
 
 Install [Django](https://www.djangoproject.com/download/):
 
@@ -276,7 +284,7 @@ And you’ll get a response something like (based on available data in tables):
 Check out the [sample](https://github.com/abhimantiwari/Django-AzureSQL) to test all the CRUD operations.
 
 > [!TIP]
-> You can use [mssql-django](https://github.com/microsoft/mssql-django) as a backend for your existing Django 4.0 project with no major change if that's already configured for MSSQL.
+> You can use [mssql-django](https://github.com/microsoft/mssql-django) as a backend for your existing Django 4.0 project with no major change if that's already configured for MS SQL Server.
 &nbsp;
 
 If you encounter any issues or have any feedback about [mssql-django](https://github.com/microsoft/mssql-django), head over to our mssql-django project repository and submit an issue.

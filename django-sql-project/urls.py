@@ -1,4 +1,4 @@
-"""DjangoAZsqlApp URL Configuration
+"""django-sql-project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -20,7 +20,7 @@ from django.urls import include, path
 #
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('CustomerApp/', include('CustomerApp.urls')),
+    path('customerapi/', include('customerapi.urls')),
 ]
 
 

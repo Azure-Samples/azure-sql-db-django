@@ -6,8 +6,8 @@ from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 #from django.http import HttpResponse
 
-from CustomerApp.models import Customers, Products, OrderDetails
-from CustomerApp.serializers import CustomerSerializer,ProductSerializer, OrderDetailSerializer
+from customerapi.models import Customers, Products, OrderDetails
+from customerapi.serializers import CustomerSerializer,ProductSerializer, OrderDetailSerializer
 
 
 # Create your views here.

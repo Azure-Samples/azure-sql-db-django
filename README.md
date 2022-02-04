@@ -8,13 +8,13 @@ The sample uses the [Django](https://www.djangoproject.com/) web framework and [
 
 ## Download the sample code
 
-Download the code from Github repository [azure-sql-db-django](https://github.com/abhimantiwari/Django-AzureSQL).
+Download the code from Github repository [azure-sql-db-django](https://github.com/abhimantiwari/azure-sql-db-django).
 
 Using Git bash.
 
 - Open Git Bash.
 - Change the current working directory to the location where you want the cloned directory.
-- Type `git clone` and then paste the URL of Github repository [azure-sql-db-django](https://github.com/abhimantiwari/Django-AzureSQL).
+- Type `git clone` and then paste the URL of Github repository [azure-sql-db-django](https://github.com/abhimantiwari/azure-sql-db-django).
 
 ```bash
 $ git clone https://github.com/YOUR-USERNAME/azure-sql-db-django
@@ -25,11 +25,11 @@ Alternatively you can clone the code using visual studio code as well.
 - Open the folder location where you want to cloned the code
 - In Visual Studio Code, select Source Control > ... > Clone (or select View, Command Palette and enter Git:Clone), paste the Git repository URL you copied in the previous step, and then select Enter</>.
 
-Since you have the code downloaded to your local computer. You should see folder structure as below:
+Once you have the code downloaded to your local computer. You should see folder structure as below:
 
 ```properties
-Django-AzureSQL
- ┣ CustomerApp
+azure-sql-db-django
+ ┣ customerapi
  ┃ ┣ __pycache__
  ┃ ┣ migrations
  ┃ ┣ admin.py
@@ -40,7 +40,7 @@ Django-AzureSQL
  ┃ ┣ urls.py
  ┃ ┣ views.py
  ┃ ┗ __init__.py
- ┣ DjangoAZsqlApp
+ ┣ django-sql-project
  ┃ ┣ __pycache__
  ┃ ┣ asgi.py
  ┃ ┣ settings.py
@@ -139,7 +139,7 @@ Before you start installing or using django packages in your virtual environment
 
 ## Install the dependencies
 
-> Make sure virtual environment is active and you are into your `working_folder\Django-AzureSQL`.
+> Make sure virtual environment is active and you are into your `working_folder\azure-sql-db-django`.
 
 > [!TIP]
 > You can install all the required packages in one go by running the below command and directly move to Database ConnectionString **Configuration** section or may follow the instructions to execute them one by one:
@@ -241,9 +241,9 @@ DATABASES = {
 Run the migrations command to propagate changes you made to your models (creating a class, adding a field, deleting a model, etc.) into your database schema.
 
 ```python
-python manage.py makemigrations <app name>
+python manage.py makemigrations customerapi
 
-python manage.py migrate <app name>
+python manage.py migrate customerapi
 ```
 
 Once migration is done successfully, you’ll see that database objects are created in your database. You can connect to your database and verify. Quickstart available here: [Quickstart: Use Azure Data Studio to connect and query Azure SQL database](https://docs.microsoft.com/en-us/sql/azure-data-studio/quickstart-sql-database?view=sql-server-ver15)
@@ -261,8 +261,8 @@ Once the Django application is running, you'll see something like:
 ```bash
 ...
 System check identified no issues (0 silenced).
-January 26, 2022 - 00:29:43
-Django version 4.0.1, using settings 'DjangoAZsqlApp.settings'
+February 04, 2022 - 14:32:15
+Django version 4.0.2, using settings 'django-sql-project.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CTRL-BREAK.
 ```
@@ -270,7 +270,7 @@ Quit the server with CTRL-BREAK.
 Using a REST Client (like [Insomnia](https://insomnia.rest/), [Postman](https://www.postman.com/), or curl), you can now call your API, for example:
 
 ```bash
-curl -X GET http://127.0.0.1:8000/CustomerApp/Customer/
+curl -X GET http://127.0.0.1:8000/customerapi/customer/
 ```
 
 And you’ll get a response something like (based on available data in tables):
@@ -281,7 +281,7 @@ And you’ll get a response something like (based on available data in tables):
 ]
 ```
 
-Check out the [sample](https://github.com/abhimantiwari/Django-AzureSQL) to test all the CRUD operations.
+Check out the [sample](https://github.com/abhimantiwari/azure-sql-db-django) to test all the CRUD operations.
 
 > [!TIP]
 > You can use [mssql-django](https://github.com/microsoft/mssql-django) as a backend for your existing Django 4.0 project with no major change if that's already configured for MS SQL Server.

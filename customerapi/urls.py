@@ -8,7 +8,7 @@ from django.conf import settings
 
 #URLConf
 urlpatterns=[
-    path('Customer/', views.CustomerAPI, name="Customer"),
-    path('Product/', views.ProductAPI,),
-    path('OrderDetails/', views.OrderDetailAPI)
+    path('customer/', views.CustomerAPI, name="customer"),
+    path('product/', views.ProductAPI,),
+    path('orderdetails/', views.OrderDetailAPI)
 ]

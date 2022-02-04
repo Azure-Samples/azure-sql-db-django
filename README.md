@@ -8,13 +8,13 @@ The sample uses the [Django](https://www.djangoproject.com/) web framework and [
 
 ## Download the sample code
 
-Download the code from Github repository [azure-sql-db-django](https://github.com/abhimantiwari/azure-sql-db-django).
+Download the code from GitHub repository [azure-sql-db-django](https://github.com/abhimantiwari/azure-sql-db-django).
 
 Using Git bash.
 
 - Open Git Bash.
 - Change the current working directory to the location where you want the cloned directory.
-- Type `git clone` and then paste the URL of Github repository [azure-sql-db-django](https://github.com/abhimantiwari/azure-sql-db-django).
+- Type `git clone` and then paste the URL of GitHub repository [azure-sql-db-django](https://github.com/abhimantiwari/azure-sql-db-django).
 
 ```bash
 $ git clone https://github.com/YOUR-USERNAME/azure-sql-db-django
@@ -22,8 +22,8 @@ $ git clone https://github.com/YOUR-USERNAME/azure-sql-db-django
 
 Alternatively you can clone the code using visual studio code as well.
 
-- Open the folder location where you want to cloned the code
-- In Visual Studio Code, select Source Control > ... > Clone (or select View, Command Palette and enter Git:Clone), paste the Git repository URL you copied in the previous step, and then select Enter</>.
+- Open the folder location where you want to clone the code
+- In Visual Studio Code, select Source Control > ... > Clone (or select View, Command Palette and enter Git:Clone), paste the [Git repository URL](https://github.com/abhimantiwari/azure-sql-db-django.git), and then select Enter</>.
 
 Once you have the code downloaded to your local computer. You should see folder structure as below:
 
@@ -103,7 +103,7 @@ hello world
 > [!NOTE]
 >All the commands shown here are for Windows. If you are working on any other OS/ environment e.g. Linux, MAC etc. change these commands accordingly.
 
-Install [`virtualenv`](https://virtualenv.pypa.io/en/latest/) to configure virtual environment to have isolated Python environment to avoid installing Python packages globally which could potentially break system tools or other projects. For example on Windows:
+Install [`virtualenv`](https://virtualenv.pypa.io/en/latest/) to configure virtual environment to have isolated Python environment to avoid installing Python packages globally, which could potentially break system tools or other projects. For example, on Windows:
 
 ```python
 python -m pip install --user virtualenv

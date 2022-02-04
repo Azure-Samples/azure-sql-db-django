@@ -1,3 +1,19 @@
+---
+page_type: sample
+languages:
+- python
+- django
+- tsql
+- sql
+products:
+- vs-code
+- azure-sql-database
+- mssql-django
+
+description: "Creating a REST API with with Python Django and Azure SQL"
+urlFragment: "azure-sql-db-django"
+---
+
 # Creating a REST API with Python Django and Azure SQL
 
 The sample uses the [Django](https://www.djangoproject.com/) web framework and [Django Rest framework](https://www.django-rest-framework.org/) package to easily implement REST APIs. [mssql-django](https://github.com/microsoft/mssql-django) v1.1 used to establish database connectivity with Azure SQL.

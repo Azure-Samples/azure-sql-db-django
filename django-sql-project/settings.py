@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'customerapi.apps.customerapiConfig'
+    'customerapi'
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'django-sql-project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'YourDatabaseName',
-        'HOST': "xxxx.database.windows.net",
+        'NAME': 'django',
+        'HOST': "dmmssqlsrv.database.windows.net",
         'PORT': '1433',
-        'USER': 'DB_username',
-        'PASSWORD': 'DB_user_password',
+        'USER': 'damauri',
+        'PASSWORD': 'NewStrongPassw0rd!',
         'OPTIONS': {
 	            'driver': 'ODBC Driver 17 for SQL Server',
 	        },

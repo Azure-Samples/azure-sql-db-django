@@ -86,10 +86,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'django',
-        'HOST': "***REMOVED***.database.windows.net",
+        'HOST': "dmmssqlsrv.database.windows.net",
         'PORT': '1433',
-        'USER': '***REMOVED***',
-        'PASSWORD': 'NewStrong***REMOVED***',
+        'USER': 'damauri',
+        'PASSWORD': 'NewStrongPassw0rd!',
         'OPTIONS': {
 	            'driver': 'ODBC Driver 17 for SQL Server',
 	        },

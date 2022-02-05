@@ -2,12 +2,10 @@
 page_type: sample
 languages:
 - python
-- django
 - sql
 products:
 - vs-code
 - azure-sql-database
-- mssql-django
 
 description: "Creating REST API with Python, Django and Azure SQL"
 urlFragment: "azure-sql-db-django"

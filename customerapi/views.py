@@ -15,9 +15,8 @@ from customerapi.serializers import CustomerSerializer,ProductSerializer, OrderD
 
 @csrf_exempt
 def CustomerAPI (request):
-    if request.method=='GET':
-        
-        customers =  Customer.objects.all()
+    if request.method=='GET':        
+        customers = Customer.objects.all()
         customers_serializer=CustomerSerializer(customers,many=True)
         return JsonResponse(customers_serializer.data,safe=False)
     elif request.method=='POST':

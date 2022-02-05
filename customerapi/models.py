@@ -8,13 +8,23 @@ from django.db import models
 class Customer(models.Model):
     CustomerId = models.AutoField(primary_key=True)
     CustomerName = models.CharField(max_length=500)
+    
+    def __str__(self):
+        return self.CustomerName
 
 class Product(models.Model):
     ProductId = models.AutoField(primary_key=True)
     ProductName = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.ProductName
+
 
 class OrderDetail(models.Model):
     OrderId = models.AutoField(primary_key=True)
     CustomerId = models.IntegerField(blank=False)
     ProductId = models.IntegerField(blank=False)
     OrderDate = models.DateField()
+
+    def __str__(self):
+        return f"Order #{self.OrderId}"

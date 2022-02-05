@@ -2,12 +2,10 @@
 page_type: sample
 languages:
 - python
-- django
 - sql
 products:
 - vs-code
 - azure-sql-database
-- mssql-django
 
 description: "Creating REST API with Python, Django and Azure SQL"
 urlFragment: "azure-sql-db-django"
@@ -25,29 +23,22 @@ The sample uses the [Django](https://www.djangoproject.com/) web framework and [
 
 ## Download the sample code
 
-Download the code from GitHub repository [azure-sql-db-django](https://github.com/abhimantiwari/azure-sql-db-django).
-
-Using Git bash.
-
-- Open Git Bash.
-- Change the current working directory to the location where you want the cloned directory.
-- Type `git clone` and then paste the URL of GitHub repository [azure-sql-db-django](https://github.com/abhimantiwari/azure-sql-db-django).
+Clone this repository:
 
 ```bash
-$ git clone https://github.com/YOUR-USERNAME/azure-sql-db-django
+git clone https://github.com/azure-samples/azure-sql-db-django
 ```
 
 Alternatively you can clone the code using visual studio code as well.
 
 - Open the folder location where you want to clone the code
-- In Visual Studio Code, select Source Control > ... > Clone (or select View, Command Palette and enter Git:Clone), paste the [Git repository URL](https://github.com/abhimantiwari/azure-sql-db-django.git), and then select Enter</>.
+- In Visual Studio Code, select Source Control > ... > Clone (or select View, Command Palette and enter Git:Clone), paste the [Git repository URL](https://github.com/azure-samples/azure-sql-db-django.git), and then select Enter</>.
 
 Once you have the code downloaded to your local computer. You should see folder structure as below:
 
 ```properties
 azure-sql-db-django
  ┣ customerapi
- ┃ ┣ __pycache__
  ┃ ┣ migrations
  ┃ ┣ admin.py
  ┃ ┣ apps.py
@@ -58,7 +49,6 @@ azure-sql-db-django
  ┃ ┣ views.py
  ┃ ┗ __init__.py
  ┣ django-sql-project
- ┃ ┣ __pycache__
  ┃ ┣ asgi.py
  ┃ ┣ settings.py
  ┃ ┣ urls.py
@@ -105,45 +95,32 @@ You can get your public IP [here](https://ipinfo.io/ip) or through other ways, f
 
 ## Setup the local environment
 
-Make sure you have [Python](https://www.python.org/) =>3.10 installed on your machine.
+Make sure you have [Python](https://www.python.org/) => 3.8.10 installed on your machine.
 
-To confirm you can run `python` on Terminal.
+To confirm you can run `python` or `python3` on terminal.
 
 ```python
-> python
-Python 3.10.2 (tags/v3.10.2:a58ebcc, Jan 17 2022, 14:12:15) [MSC v.1929 64 bit (AMD64)] on win32
-Type "help", "copyright", "credits" or "license" for more information.
->>> print('hello world')
-hello world
->>>
+python --version
 ```
 
 > [!NOTE]
 >All the commands shown here are for Windows. If you are working on any other OS/ environment e.g. Linux, MAC etc. change these commands accordingly.
 
-Install [`virtualenv`](https://virtualenv.pypa.io/en/latest/) to configure virtual environment to have isolated Python environment to avoid installing Python packages globally, which could potentially break system tools or other projects. For example, on Windows:
+Make sure you have [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) installed and create a new virtual enviroment in the folder where you have cloned the repository:
 
-```python
-python -m pip install --user virtualenv
 ```
-
-Configure virtual environment:\
-To create a virtual environment, go to your project’s working directory and run `venv`.
-
-```python
-python -m venv env
+python3 -m venv env
 ```
 
 > [!NOTE]
-> In the above command the second parameter `env` is the location to create virtual environment.\
+> In the above command the second parameter `venv` is the location to create virtual environment.\
 > `venv` will create a virtual Python installation in the `env` folder.\
 > You should exclude your virtual environment directory from your version control system using `.gitignore` or similar.
 
-Activate the virtual environment:\
-Before you start installing or using django packages in your virtual environment, you'll need to Activate it.
+Before you start installing or using django packages in your virtual environment, you'll need to [activate it](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#activating-a-virtual-environment), for example on Windows:
 
-```python
-. .\env\Scripts\activate
+```
+.\env\Scripts\activate
 ```
 
 > [!NOTE]
@@ -192,6 +169,7 @@ pip install django-cors-headers
 ### Dependencies
 
 - pyodbc 3.0 or newer
+- Microsoft SQL Server ODBC driver 
 
 ### Installation
 
@@ -207,19 +185,17 @@ pip install django-cors-headers
     pip install mssql-django
     ```
 
+- Install ODBC driver: [Instructions](https://docs.microsoft.com/en-us/sql/connect/odbc/microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
+
 ### Configuration
 
-Configure the Database ConnectionString in the settings.py file used by your Django application or project:
+Configure the Database ConnectionString in the settings.py file used by your Django project to use `mssql` and the related ODBC driver
 
 ```sql
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'Database_name',
-        'HOST': "xyz.database.windows.net",
         'PORT': '1433',
-        'USER': 'User_name',
-        'PASSWORD': 'db_pwd',
         'OPTIONS': {
                 'driver': 'ODBC Driver 17 for SQL Server',
             },
@@ -233,9 +209,6 @@ To connect Azure SQL DB using MSI (Managed Service Identity), you can have setti
 DATABASES = {
     'default': {
          'ENGINE': 'mssql',
-         'HOST': 'xyz.database.windows.net',
-         'NAME': 'Database_name', 
-         'PORT': '', 
          'Trusted_Connection': 'no', 
          'OPTIONS': { 
              'driver': 'ODBC Driver 17 for SQL Server', 
@@ -243,6 +216,8 @@ DATABASES = {
      }
 }
 ```
+
+Please note that for this sample we decided to avoid to have secrets in the `settings.py` file. All sensistive detail will be loaded from enviroment variables. For development purposes you can create and `.env` file, using the provided `.env.sample`, to provide database connection info.
 
 > [!WARNING]
 > [mssql-django](https://github.com/microsoft/mssql-django) doesn't support using time zones so the recommendation is to ensure the `USE_TZ` option is set to `False`.
@@ -269,6 +244,16 @@ Once migration is done successfully, you’ll see that database objects are crea
 ## Run sample locally
 
 Execute the below command, to start the development web server on the local machine. By default, the server runs on port 8000 on the IP address 127.0.0.1. You can pass in an IP address and port number explicitly.
+
+Inititalze Django - this is needed only the first time
+
+```python
+python manage.py migrate
+
+python manage.py createsuperuser
+```
+
+and then run the server
 
 ```python
 python manage.py runserver

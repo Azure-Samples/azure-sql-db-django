@@ -13,7 +13,7 @@ urlFragment: "azure-sql-db-django"
 
 # Creating REST API with Python, Django and Azure SQL
 
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/abhimantiwari/azure-sql-db-django/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/azure-samples/azure-sql-db-django/blob/main/LICENSE)
 
 The sample uses the [Django](https://www.djangoproject.com/) web framework and [Django Rest framework](https://www.django-rest-framework.org/) package to easily implement REST APIs. [mssql-django](https://github.com/microsoft/mssql-django) v1.1 used to establish database connectivity with Azure SQL.
 
@@ -29,7 +29,7 @@ Clone this repository:
 git clone https://github.com/azure-samples/azure-sql-db-django
 ```
 
-Alternatively you can clone the code using visual studio code as well.
+Alternatively you can clone the code using Visual Studio Code as well.
 
 - Open the folder location where you want to clone the code
 - In Visual Studio Code, select Source Control > ... > Clone (or select View, Command Palette and enter Git:Clone), paste the [Git repository URL](https://github.com/azure-samples/azure-sql-db-django.git), and then select Enter</>.
@@ -106,9 +106,9 @@ python --version
 > [!NOTE]
 >All the commands shown here are for Windows. If you are working on any other OS/ environment e.g. Linux, MAC etc. change these commands accordingly.
 
-Make sure you have [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) installed and create a new virtual enviroment in the folder where you have cloned the repository:
+Make sure you have [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) installed and create a new virtual environment in the folder where you have cloned the repository:
 
-```
+```bash
 python3 -m venv env
 ```
 
@@ -119,7 +119,7 @@ python3 -m venv env
 
 Before you start installing or using django packages in your virtual environment, you'll need to [activate it](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/#activating-a-virtual-environment), for example on Windows:
 
-```
+```bash
 .\env\Scripts\activate
 ```
 
@@ -169,7 +169,7 @@ pip install django-cors-headers
 ### Dependencies
 
 - pyodbc 3.0 or newer
-- Microsoft SQL Server ODBC driver 
+- Microsoft SQL Server ODBC driver
 
 ### Installation
 
@@ -186,9 +186,10 @@ pip install django-cors-headers
     ```python
     pip install mssql-django
     ```
+
 ### Configuration
 
-Configure the Database ConnectionString in the `settings.py` file used by your Django project to use `mssql` and the related ODBC driver
+Configure the Database ConnectionString in the `settings.py` file used by your Django project to use `mssql` and the related ODBC driver.
 
 ```sql
 DATABASES = {
@@ -216,10 +217,10 @@ DATABASES = {
 }
 ```
 
-Please note that for this sample we decided to avoid to have secrets in the `settings.py` file. All sensistive detail will be loaded from enviroment variables. For development purposes you can create and `.env` file, using the provided `.env.sample`, to provide database connection info.
+Please note that for this sample we decided to avoid to have secrets in the `settings.py` file. All sensitive detail will be loaded from environment variables. For development purposes you can create and `.env` file, using the provided `.env.sample`, to provide database connection info.
 
 > [!WARNING]
-> [mssql-django](https://github.com/microsoft/mssql-django) doesn't support using time zones so the recommendation is to ensure the `USE_TZ` option is set to `False`.
+> [mssql-django](https://github.com/microsoft/mssql-django) doesn't support using time zones yet, so the recommendation is to ensure the `USE_TZ` option is set to `False`.
 >
 >```sql
 >
@@ -244,7 +245,7 @@ Once migration is done successfully, you'll see that database objects are create
 
 Execute the below command, to start the development web server on the local machine. By default, the server runs on port 8000 on the IP address 127.0.0.1. You can pass in an IP address and port number explicitly.
 
-Inititalze Django - this is needed only the first time
+Initialize Django - this is needed only the first time
 
 ```python
 python manage.py migrate
@@ -283,7 +284,7 @@ And you’ll get a response something like (based on available data in tables):
 ]
 ```
 
-Check out the [sample](https://github.com/abhimantiwari/azure-sql-db-django) to test all the CRUD operations.
+Check out the [sample](https://github.com/azure-samples/azure-sql-db-django) to test all the CRUD operations.
 
 > [!TIP]
 > You can use [mssql-django](https://github.com/microsoft/mssql-django) as a backend for your existing Django 4.0 project with no major change if that's already configured for MS SQL Server.

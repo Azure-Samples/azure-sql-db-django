@@ -19,7 +19,7 @@ The sample uses the [Django](https://www.djangoproject.com/) web framework and [
 
 > [!NOTE]
 > [mssql-django](https://github.com/microsoft/mssql-django) is a fork of [django-mssql-backend](https://pypi.org/project/django-mssql-backend/). This driver provides an enterprise database connectivity option for the Django Web Framework, with support for Microsoft SQL Server and Azure SQL Database.
->[ssql-django](https://github.com/microsoft/mssql-django) supports Django 2.2, 3.0, 3.1, 3.2 and 4.0.
+> [mssql-django](https://github.com/microsoft/mssql-django) supports Django 2.2, 3.0, 3.1, 3.2 and 4.0.
 
 ## Download the sample code
 

@@ -134,7 +134,7 @@ Before you start installing or using django packages in your virtual environment
 
 ## Install the dependencies
 
-> Make sure virtual environment is active and you are into your `working_folder\azure-sql-db-django`.
+Make sure virtual environment is active and you are into your `<working_folder>\azure-sql-db-django`.
 
 > [!TIP]
 > You can install all the required packages in one go by running the below command and directly move to Database ConnectionString **Configuration** section or may follow the instructions to execute them one by one:
@@ -173,6 +173,8 @@ pip install django-cors-headers
 
 ### Installation
 
+- Install ODBC driver: [Instructions](https://docs.microsoft.com/en-us/sql/connect/odbc/microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
+
 - Install pyodbc:
 
     ```python
@@ -184,12 +186,9 @@ pip install django-cors-headers
     ```python
     pip install mssql-django
     ```
-
-- Install ODBC driver: [Instructions](https://docs.microsoft.com/en-us/sql/connect/odbc/microsoft-odbc-driver-for-sql-server?view=sql-server-ver15)
-
 ### Configuration
 
-Configure the Database ConnectionString in the settings.py file used by your Django project to use `mssql` and the related ODBC driver
+Configure the Database ConnectionString in the `settings.py` file used by your Django project to use `mssql` and the related ODBC driver
 
 ```sql
 DATABASES = {
@@ -239,7 +238,7 @@ python manage.py makemigrations customerapi
 python manage.py migrate customerapi
 ```
 
-Once migration is done successfully, you’ll see that database objects are created in your database. You can connect to your database and verify. Quickstart available here: [Quickstart: Use Azure Data Studio to connect and query Azure SQL database](https://docs.microsoft.com/en-us/sql/azure-data-studio/quickstart-sql-database?view=sql-server-ver15)
+Once migration is done successfully, you'll see that database objects are created in your database. You can connect to your database and verify. Quickstart available here: [Quickstart: Use Azure Data Studio to connect and query Azure SQL database](https://docs.microsoft.com/en-us/sql/azure-data-studio/quickstart-sql-database?view=sql-server-ver15)
 
 ## Run sample locally
 

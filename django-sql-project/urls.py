@@ -17,14 +17,8 @@ from django.contrib import admin
 
 from django.urls import include, path
 
-#
+#URl patterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('customerapi/', include('customerapi.urls')),
 ]
-
-
-# urlpatterns = [
-#     # path('admin/', admin.site.urls),
-#     #  url(r'customer/([0-9]+)$',views.CustomerAPI)
-# ]

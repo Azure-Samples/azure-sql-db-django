@@ -286,6 +286,61 @@ And you’ll get a response something like (based on available data in tables):
 
 Check out the [sample](https://github.com/azure-samples/azure-sql-db-django) to test all the CRUD operations.
 
+## Deploy your application code to Azure App Service
+
+Azure App service supports multiple methods to deploy your application code to Azure including support for GitHub Actions and all major CI/CD tools. This article focuses on how to deploy your code from your local workstation to Azure.
+
+### Prerequisites
+
+If you don't have an Azure subscription, create a [free](https://azure.microsoft.com/en-us/free/) account before you begin.
+
+This article requires that you're running the Azure CLI version 2.0 or later locally. To see the version installed, run the `az --version` command. If you need to install or upgrade, see [Install Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
+
+You'll need to login to your account using the [az login](https://docs.microsoft.com/en-us/cli/azure/authenticate-azure-cli) command.
+
+```azurecli
+az login
+```
+
+If you have multiple subscriptions, choose the appropriate subscription in which the resource should be created. Select the specific subscription ID under your account using [az account set](https://docs.microsoft.com/en-us/cli/azure/account?view=azure-cli-latest) command. Substitute the subscription ID property from the az login output for your subscription into the subscription ID placeholder.
+
+```azurecli
+az account set --subscription <subscription id>
+```
+
+### Create the App Service webapp and deploy code from a local workspace
+
+In the terminal, make sure you're in the repository root (`<working_folder>\azure-sql-db-django`) that contains the app code.
+
+Run the below [az webapp](https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest) commands:
+
+> [az webapp up](https://docs.microsoft.com/en-us/cli/azure/webapp?view=azure-cli-latest#az-webapp-up) create a webapp and deploy code from a local workspace to the app. Python apps are created as Linux apps by default.
+
+```azurecli
+# Create a web app and deploy the code
+az webapp up -g <MyResourceGroup> -l <location> -p <azure-sql-db-django-plan> --sku B1 -n <azure-sql-db-django-api> -r 'PYTHON:3.9'
+
+# Configure database information as environment variables
+az webapp config appsettings set --settings DB_SERVER="<azure-sql-server-name>.database.windows.net" DB_NAME="<db-name>" DB_USER="<db-user-id>" DB_PASSWORD="<db-password>"
+```
+
+- For the `--resource-group -g`, you can use the same resource group you created for the Database in the previous section.
+- For the `--location -l` argument, use the same location as you did for the database in the previous section.
+- Create the [App Service plan](https://docs.microsoft.com/en-us/azure/app-service/overview-hosting-plans) *azure-sql-db-django-plan* in the Basic pricing tier (B1), if it doesn't exist. --plan and --sku are optional.
+- For the `--runtime -r`, canonicalize runtime in the format of Framework|Version, e.g. "PYTHON|3.9". Allowed delimiters: "|" or ":". Use `az webapp list-runtimes --linux --output table` for available list.
+- The app code expects to find database information in a number of environment variables. To set environment variables in App Service, you create "app settings" with the [az webapp config appsettings set](https://docs.microsoft.com/en-us/cli/azure/webapp/config/appsettings?view=azure-cli-latest#az_webapp_config_appsettings_set) command.
+
+> [!NOTE]
+> App Service detects a Django project by looking for a wsgi.py file in each subfolder, which `manage.py startproject` creates by default. When App Service finds that file, it loads the Django web app. For more information, see [Configure built-in Python image](https://docs.microsoft.com/en-us/azure/app-service/configure-language-python).
+
+## Browse to the app running on Azure App Service
+
+The Python Django sample code is running a Linux container in App Service using a built-in image.
+
+Browse to the deployed application in your web browser at the URL `http://<app-name>.azurewebsites.net/customerapi/customer/` or make a call to the API using any other REST clients.
+
+**Congratulations!** You're running a Python Django app in Azure App Service for Linux, with Azure SQL database.
+
 > [!TIP]
 > You can use [mssql-django](https://github.com/microsoft/mssql-django) as a backend for your existing Django 4.0 project with no major change if that's already configured for MS SQL Server.
 &nbsp;

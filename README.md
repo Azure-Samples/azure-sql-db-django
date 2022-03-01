@@ -308,6 +308,26 @@ If you have multiple subscriptions, choose the appropriate subscription in which
 az account set --subscription <subscription id>
 ```
 
+> Refer [this article](https://docs.microsoft.com/en-us/azure/app-service/configure-language-python), to know more about configuring a Linux Python app for Azure app Service.
+
+### Configure static files
+
+- In your settings file, define `STATIC_URL` and `STATIC_ROOT`, for example:
+
+```python
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
+
+STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
+```
+
+- Run the `python manage.py collectstatic` to gather static files into a directory at `STATIC_ROOT` path for the admin site:
+
+```python
+python manage.py collectstatic
+```
+
 ### Create the App Service webapp and deploy code from a local workspace
 
 In the terminal, make sure you're in the repository root (`<working_folder>\azure-sql-db-django`) that contains the app code.
@@ -337,7 +357,7 @@ az webapp config appsettings set --settings DB_SERVER="<azure-sql-server-name>.d
 
 The Python Django sample code is running a Linux container in App Service using a built-in image.
 
-Browse to the deployed application in your web browser at the URL `http://<app-name>.azurewebsites.net/customerapi/customer/` or make a call to the API using any other REST clients.
+Browse to the deployed application in your web browser at the URL `https://<app-name>.azurewebsites.net/admin` or make a call to the API `https://<app-name>.azurewebsites.net/customerapi/customer/` using any other REST clients (like [Insomnia](https://insomnia.rest/), [Postman](https://www.postman.com/), or curl).
 
 **Congratulations!** You're running a Python Django app in Azure App Service for Linux, with Azure SQL database.
 

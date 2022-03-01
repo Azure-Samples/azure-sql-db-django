@@ -14,6 +14,9 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,8 +32,10 @@ SECRET_KEY = 'django-insecure-r+$45&sm1im6(9a@dgmt7en0*v5w4p$j_$3+ohx!bay6pj%2d5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# SECURITY WARNING: In production, allow only those domains which you trust.
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://*.azurewebsites.net']
+CORS_ALLOW_ALL_ORIGINS: True
 
 # Application definition
 
@@ -99,7 +104,7 @@ DATABASES = {
 	        },
     }
 
-    #To connect Azure SQL DB using MSI (Managed Service Idenity)
+    #To connect Azure SQL DB using MSI (Managed Service Identity)
     # {
     #     'ENGINE': 'mssql',
     #     'HOST': 'xyz.database.windows.net',
@@ -111,10 +116,6 @@ DATABASES = {
     #         'extra_params': "Authentication=ActiveDirectoryMsi;Encrypt=yes;TrustServerCertificate=no" }
     # }
 }
-
-# set this to False if the backend does not support using time zones
-USE_TZ = False
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -144,13 +145,15 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_TZ = True
+# set this to False if the backend does not support using time zones
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

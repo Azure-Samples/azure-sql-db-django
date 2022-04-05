@@ -113,7 +113,7 @@ python3 -m venv env
 ```
 
 > [!NOTE]
-> In the above command the second parameter `venv` is the location to create virtual environment.\
+> In the above command the second parameter `env` is the location to create virtual environment.\
 > `venv` will create a virtual Python installation in the `env` folder.\
 > You should exclude your virtual environment directory from your version control system using `.gitignore` or similar.
 
@@ -217,7 +217,7 @@ DATABASES = {
 }
 ```
 
-Please note that for this sample we decided to avoid to have secrets in the `settings.py` file. All sensitive detail will be loaded from environment variables. For development purposes you can create and `.env` file, using the provided `.env.sample`, to provide database connection info.
+Please note that for this sample we decided to avoid having secrets in the `settings.py` file. All sensitive details will be loaded from environment variables. For development purposes you can create an `.env` file, using the provided `.env.sample`, to provide database connection info.
 
 > [!WARNING]
 > [mssql-django](https://github.com/microsoft/mssql-django) doesn't support using time zones yet, so the recommendation is to ensure the `USE_TZ` option is set to `False`.

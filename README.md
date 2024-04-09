@@ -109,7 +109,7 @@ python --version
 Make sure you have [venv](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) installed and create a new virtual environment in the folder where you have cloned the repository:
 
 ```bash
-python3 -m venv env
+python -m venv env
 ```
 
 > [!NOTE]

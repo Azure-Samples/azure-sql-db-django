@@ -270,7 +270,7 @@ Starting development server at http://127.0.0.1:8000/
 Quit the server with CTRL-BREAK.
 ```
 
-Using a REST Client (like [Insomnia](https://insomnia.rest/), [Postman](https://www.postman.com/), or curl), you can now call your API, for example:
+Using a REST Client (such as [Visual Studio](https://learn.microsoft.com/aspnet/core/test/http-files), [Insomnia](https://insomnia.rest/), [Curl](https://curl.se/docs/httpscripting.html) or PowerShell's [Invoke-RestMethod](https://learn.microsoft.com/powershell/module/microsoft.powershell.utility/invoke-restmethod)), you can now call your API, for example:
 
 ```bash
 curl -X GET http://127.0.0.1:8000/customerapi/customer/
@@ -357,7 +357,7 @@ az webapp config appsettings set --settings DB_SERVER="<azure-sql-server-name>.d
 
 The Python Django sample code is running a Linux container in App Service using a built-in image.
 
-Browse to the deployed application in your web browser at the URL `https://<app-name>.azurewebsites.net/admin` or make a call to the API `https://<app-name>.azurewebsites.net/customerapi/customer/` using any other REST clients (like [Insomnia](https://insomnia.rest/), [Postman](https://www.postman.com/), or curl).
+Browse to the deployed application in your web browser at the URL `https://<app-name>.azurewebsites.net/admin` or make a call to the API `https://<app-name>.azurewebsites.net/customerapi/customer/` using any other REST Client (such as [Visual Studio](https://learn.microsoft.com/aspnet/core/test/http-files), [Insomnia](https://insomnia.rest/), [Curl](https://curl.se/docs/httpscripting.html) or PowerShell's [Invoke-RestMethod](https://learn.microsoft.com/powershell/module/microsoft.powershell.utility/invoke-restmethod)), you can now call your API, for example:.
 
 **Congratulations!** You're running a Python Django app in Azure App Service for Linux, with Azure SQL database.
 
